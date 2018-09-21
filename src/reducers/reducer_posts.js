@@ -7,6 +7,7 @@ export default function (state = {}, action) {
       return _.omit(state, action.payload);
     case FETCH_POST:
       const post = action.payload.data;
+      console.log('inside reducer, case FETCH_POST, post:', post);
       return { ...state, [post.id]: post }
     case FETCH_POSTS:
       return _.mapKeys(action.payload.data, 'id');

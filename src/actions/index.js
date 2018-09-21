@@ -11,10 +11,14 @@ const API_KEY = '?key=doctorSpok12345';
 export function fetchPosts () {
   const request = axios.get(`${ROOT_URL}/posts${API_KEY}`);
 
-  return {
-    type: FETCH_POSTS,
-    payload: request
-  };
+  return (dispatch) => {
+    request.then(response => {
+      dispatch({
+        type: FETCH_POSTS,
+        payload: response
+      })
+    })
+  }
 }
 
 export function createPost(values, callback) {
@@ -30,9 +34,15 @@ export function createPost(values, callback) {
 export function fetchPost(id) {
   const request = axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
 
-  return {
-    type:  FETCH_POST,
-    payload: request
+  return (dispatch) => {
+    request
+      .then(response =>
+        dispatch({
+          type:  FETCH_POST,
+          payload: response
+        })
+      )
+      .catch(e => console.log('somthing went wrong, error:', e))
   }
 }
 
